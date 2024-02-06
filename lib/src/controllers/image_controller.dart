@@ -17,7 +17,8 @@ class GRImageController extends GetxController {
       // Use the random filename in the path
       await firebase_storage.FirebaseStorage.instance
           .ref('meal_images/$randomFileName.jpg')
-          .putFile(file);
+          .putFile(file,
+              firebase_storage.SettableMetadata(contentType: 'image/jpg'));
 
       // Once the file upload is complete, get the download URL
       downloadURL!.value = await firebase_storage.FirebaseStorage.instance
