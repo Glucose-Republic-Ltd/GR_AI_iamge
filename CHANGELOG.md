@@ -1,3 +1,8 @@
 ## 0.0.1
 
-* TODO: Describe initial release.
+* First Relaease
+
+## 0.0.2
+
+* Fixed naming issues
+* changed image type for firebase
