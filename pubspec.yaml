@@ -1,0 +1,24 @@
+name: gr_image_ai_package
+description: "A Package for Glucose Republic for capturing images and having AI
+  detect the glucose level in the image"
+version: 0.0.1
+# homepage: null
+environment:
+  sdk: ">=3.2.3 <4.0.0"
+  flutter: ">=1.17.0"
+
+dependencies:
+  firebase_core: ^2.25.3
+  firebase_storage: ^11.6.4
+  flutter:
+    sdk: flutter
+  flutter_image_compress: ^2.1.0
+  get: ^4.6.6
+  image_picker: ^1.0.5
+
+dev_dependencies:
+  flutter_lints: ^3.0.0
+  flutter_test:
+    sdk: flutter
+
+flutter: null

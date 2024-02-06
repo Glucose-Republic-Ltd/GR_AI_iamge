@@ -1,0 +1,10 @@
+{
+	"configurations": [
+		{
+			"name": "Launch Example",
+			"cwd": "example",
+			"type": "dart", 
+			"request": "launch",
+		}
+	]
+}
