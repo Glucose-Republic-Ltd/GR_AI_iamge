@@ -8,11 +8,14 @@ import '../constants/variables.dart';
 class GRAiIMagePage extends StatelessWidget {
   const GRAiIMagePage({
     super.key,
-    required this.widgets,
+    required this.topWidgets,
+    required this.bottomWidgets,
     required this.analyzeFunction,
   });
 
-  final List<Widget> widgets;
+  final List<Widget> bottomWidgets;
+  final List<Widget> topWidgets;
+
   final VoidCallback analyzeFunction;
 
   @override
@@ -24,6 +27,9 @@ class GRAiIMagePage extends StatelessWidget {
       body: Center(
         child: Stack(
           children: [
+            Column(
+              children: topWidgets,
+            ),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: SingleChildScrollView(
@@ -44,7 +50,8 @@ class GRAiIMagePage extends StatelessWidget {
                     Obx(() {
                       return image.value != null
                           ? ElevatedButton(
-                              onPressed:analyzeFunction, child: Text("Analyze Image"))
+                              onPressed: analyzeFunction,
+                              child: Text("Analyze Image"))
                           : // Add onPressed function to analyze image
                           ElevatedButton(
                               onPressed: () async {
@@ -55,7 +62,7 @@ class GRAiIMagePage extends StatelessWidget {
                     }),
                     const SizedBox(height: 30),
                     Column(
-                      children: widgets,
+                      children: bottomWidgets,
                     )
                   ],
                 ),

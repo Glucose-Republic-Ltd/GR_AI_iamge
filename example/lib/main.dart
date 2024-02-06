@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:gr_image_ai_package/export_packages.dart';
 
 void main() {
-  Get.put(ImageController());
+  Get.put(GRImageController());
   runApp(GetMaterialApp(
     debugShowCheckedModeBanner: false,
     // initialRoute: Routes.SPLASH,
@@ -21,11 +21,12 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GRAiIMagePage(
+      topWidgets: [],
       analyzeFunction: () {
         print(image.value!.path);
-        Get.find<ImageController>().sendImageToAPI(image.value!.path);
+        Get.find<GRImageController>().sendImageToAPI(image.value!.path);
       },
-      widgets: [
+      bottomWidgets: [
         Text('Hello'),
         Text('World'),
       ],

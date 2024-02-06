@@ -8,7 +8,7 @@ import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 
 import '../global/random_string.dart';
 
-class ImageController extends GetxController {
+class GRImageController extends GetxController {
   Future<String?> uploadImage(String filePath) async {
     File file = File(filePath);
     String randomFileName =
