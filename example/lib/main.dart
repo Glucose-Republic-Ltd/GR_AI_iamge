@@ -21,6 +21,7 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GRAiIMagePage(
+      title: "AI Image", // this is optional it defaults to AI Image
       saveMealFunction: () {
         // save the meal to Firebase
       },

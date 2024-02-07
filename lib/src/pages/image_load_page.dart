@@ -8,12 +8,13 @@ import '../constants/variables.dart';
 class GRAiIMagePage extends StatelessWidget {
   const GRAiIMagePage({
     super.key,
-
     required this.widgets,
     required this.analyzeFunction,
     required this.saveMealFunction,
+    this.title,
   });
 
+  final String? title;
   final List<Widget> widgets;
   final VoidCallback saveMealFunction;
   final VoidCallback analyzeFunction;
@@ -33,7 +34,7 @@ class GRAiIMagePage extends StatelessWidget {
       },
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('AI Image'),
+          title: Text(title ?? 'AI Image'),
           actions: [
             IconButton(
               onPressed: () {
