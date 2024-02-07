@@ -5,10 +5,10 @@ import 'package:get/get.dart';
 import 'package:gr_image_ai_package/export_packages.dart';
 
 // This is a stateless widget for the AI Image page.
-class GRAiIMagePage extends StatelessWidget {
+class GRAiIManePage extends StatelessWidget {
   // Constructor for this widget. It takes several parameters including widgets,
   // analyzeFunction, saveMealFunction, title, and saveIcon.
-  const GRAiIMagePage({
+  const GRAiIManePage({
     super.key,
     required this.widgets,
     required this.analyzeFunction,
