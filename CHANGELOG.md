@@ -1,6 +1,6 @@
 ## 0.0.1
 
-* First Relaease
+* First Release
 
 ## 0.0.2
 
