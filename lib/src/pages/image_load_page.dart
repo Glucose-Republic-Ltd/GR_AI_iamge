@@ -6,7 +6,7 @@ import 'package:gr_image_ai_package/export_packages.dart';
 
 // This is a stateless widget for the AI Image page.
 class GRAiIMagePage extends StatelessWidget {
-  // Constructor for this widget. It takes several parameters including widgets, 
+  // Constructor for this widget. It takes several parameters including widgets,
   // analyzeFunction, saveMealFunction, title, and saveIcon.
   const GRAiIMagePage({
     super.key,
@@ -33,7 +33,7 @@ class GRAiIMagePage extends StatelessWidget {
     // Use PopScope to handle the back button press.
     return PopScope(
       canPop: true,
-      // When the back button is pressed, delete the image from Firebase Storage 
+      // When the back button is pressed, delete the image from Firebase Storage
       // and clear the image and download URL.
       onPopInvoked: (didPop) {
         if (didPop) {
@@ -50,7 +50,7 @@ class GRAiIMagePage extends StatelessWidget {
           title: Text(title ?? 'AI Image'),
           actions: [
             IconButton(
-              // When the refresh button is pressed, delete the image from Firebase Storage 
+              // When the refresh button is pressed, delete the image from Firebase Storage
               // and clear the image and download URL.
               onPressed: () {
                 if (downloadURL?.value != "") {
@@ -77,15 +77,23 @@ class GRAiIMagePage extends StatelessWidget {
                     children: <Widget>[
                       const SizedBox(height: 20),
                       // Display the uploaded image or a text message if no image is uploaded.
-                      Obx(() {
-                        return image.value != null
-                            ? CircleAvatar(
-                                radius: 100, // Half of your desired size 500
-                                backgroundImage:
-                                    FileImage(File(image.value!.path)),
-                              )
-                            : const Text('No image uploaded yet');
-                      }),
+                      Obx(
+                        () {
+                          return image.value != null
+                              ? CircleAvatar(
+                                  radius: 100, // Half of your desired size 500
+                                  backgroundImage:
+                                      FileImage(File(image.value!.path)),
+                                )
+                              : const Text(
+                                  '''
+Take a photo or select an image of your meal or recipe
+from the gallery to and let the AI do the rest.
+''',
+                                  textAlign: TextAlign.center,
+                                );
+                        },
+                      ),
                       SizedBox(height: 20),
                       // Button to analyze the image.
                       ElevatedButton(
