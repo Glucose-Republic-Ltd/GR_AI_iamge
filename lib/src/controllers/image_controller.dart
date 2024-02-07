@@ -47,9 +47,8 @@ class GRImageController extends GetxController {
       print('kDebugMode: $kDebugMode');
 
       if (response.statusCode == 200) {
-        print("response 200");
         try {
-          var responseData = json.decode(response.body);
+           responseData = json.decode(response.body);
           print("response data: $responseData");
           return responseData;
         } catch (e) {

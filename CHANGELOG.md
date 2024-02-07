@@ -6,3 +6,4 @@
 
 * Fixed naming issues
 * changed image type for firebase
+* created a variable to gain access to the response data.
