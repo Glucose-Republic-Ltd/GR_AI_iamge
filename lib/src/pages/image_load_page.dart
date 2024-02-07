@@ -12,9 +12,11 @@ class GRAiIMagePage extends StatelessWidget {
     required this.analyzeFunction,
     required this.saveMealFunction,
     this.title,
+    this.saveIcon,
   });
 
   final String? title;
+  final IconData? saveIcon;
   final List<Widget> widgets;
   final VoidCallback saveMealFunction;
   final VoidCallback analyzeFunction;
@@ -91,7 +93,7 @@ class GRAiIMagePage extends StatelessWidget {
           () {
             return FloatingActionButton(
               onPressed: responseData.value != null ? saveMealFunction : () {},
-              child: const Icon(Icons.save),
+              child: Icon(saveIcon ?? Icons.save),
             );
           },
         ),
