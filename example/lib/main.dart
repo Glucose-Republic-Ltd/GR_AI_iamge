@@ -21,14 +21,14 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GRAiIMagePage(
-      topWidgets: [],
+      saveMealFunction: () {
+        // save the meal to Firebase
+      },
       analyzeFunction: () {
-        print(image.value!.path);
         Get.find<GRImageController>().sendImageToAPI(image.value!.path);
       },
-      bottomWidgets: [
-        Text('Hello'),
-        Text('World'),
+      widgets: [
+        // show containers with the results
       ],
     );
   }
