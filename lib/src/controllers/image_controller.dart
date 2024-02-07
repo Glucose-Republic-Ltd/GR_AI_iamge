@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:gr_image_ai_package/export_packages.dart';
 import 'package:http/http.dart' as http;
@@ -9,81 +9,96 @@ import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import '../global/random_string.dart';
 
 class GRImageController extends GetxController {
+  // Function to upload an image to Firebase Storage
   Future<String?> uploadImage(String filePath) async {
+    isLoading.toggle(); // Start loading
     File file = File(filePath);
-    String randomFileName =
-        generateRandomString(20); // Generate a random filename
+    String randomFileName = generateRandomString(20); // Generate a random filename
     try {
-      // Use the random filename in the path
+      // Upload the file to Firebase Storage
       await firebase_storage.FirebaseStorage.instance
           .ref('meal_images/$randomFileName.jpg')
-          .putFile(file,
-              firebase_storage.SettableMetadata(contentType: 'image/jpg'));
+          .putFile(file, firebase_storage.SettableMetadata(contentType: 'image/jpg'));
 
-      // Once the file upload is complete, get the download URL
+      // Get the download URL of the uploaded file
       downloadURL!.value = await firebase_storage.FirebaseStorage.instance
           .ref('meal_images/$randomFileName.jpg')
           .getDownloadURL();
 
+      // If the download URL is not empty, send the image to the API
+      if (downloadURL!.value != "") {
+        sendImageToAPI(downloadURL!.value);
+      }
+
+      isLoading.toggle(); // Stop loading
       return downloadURL!.value;
     } on firebase_storage.FirebaseException catch (e) {
-      // Handle any errors
-      print(e);
+      isLoading.toggle(); // Stop loading
+      // Show an error message
+      Get.snackbar(
+        "Error: ",
+        e.toString(),
+        snackPosition: SnackPosition.BOTTOM,
+        colorText: Colors.white,
+        backgroundColor: Colors.red.withOpacity(.7),
+      );
       return null;
     }
   }
 
+  // Function to send the image to the API
   Future<Map<String, dynamic>?> sendImageToAPI(String imageUrl) async {
-    var url = Uri.parse(
-        'https://gptvisionfood-koovv6g3ba-uc.a.run.app/api/analyze_image'); // Your Flask API URL
+    var url = Uri.parse('https://gptvisionfood-koovv6g3ba-uc.a.run.app/api/analyze_image'); // Your Flask API URL
 
     try {
       var response = await http.post(url, body: {'image_url': imageUrl});
-      print("Response hit");
-      if (kDebugMode) {
-        print('Response status: ${response.statusCode}');
-        print('Response body: ${response.body}'); // Log the raw response
-      }
-      print('kDebugMode: $kDebugMode');
 
       if (response.statusCode == 200) {
         try {
-           responseData = json.decode(response.body);
-          print("response data: $responseData");
+          isLoading.toggle(); // Stop loading
+          responseData = json.decode(response.body);
           return responseData;
         } catch (e) {
-          print(e.toString());
-          if (kDebugMode) {
-            print('Error parsing JSON: $e');
-          }
-        }
-      } else {
-        print(response.statusCode);
-        print(response.reasonPhrase);
-        if (kDebugMode) {
-          print('Request failed with status: ${response.statusCode}.');
+          isLoading.toggle(); // Stop loading
+          // Show an error message
+          Get.snackbar(
+            "Error: ",
+            e.toString(),
+            snackPosition: SnackPosition.BOTTOM,
+            colorText: Colors.white,
+            backgroundColor: Colors.red.withOpacity(.7),
+          );
         }
       }
     } catch (e) {
-      print("Error 3" + e.toString());
-
-      if (kDebugMode) {
-        print('Error sending image to API: $e');
-      }
+      // Show an error message
+      Get.snackbar(
+        "Error: ",
+        e.toString(),
+        snackPosition: SnackPosition.BOTTOM,
+        colorText: Colors.white,
+        backgroundColor: Colors.red.withOpacity(.7),
+      );
     }
 
     return null;
   }
 
-  //delete the image from the storage
+  // Function to delete the image from Firebase Storage
   Future<void> deleteImage(String imageUrl) async {
     try {
       await firebase_storage.FirebaseStorage.instance
           .refFromURL(imageUrl)
           .delete();
     } on firebase_storage.FirebaseException catch (e) {
-      // Handle any errors
-      print(e);
+      // Show an error message
+      Get.snackbar(
+        "Error: ",
+        e.toString(),
+        snackPosition: SnackPosition.BOTTOM,
+        colorText: Colors.white,
+        backgroundColor: Colors.red.withOpacity(.7),
+      );
     }
   }
 }
