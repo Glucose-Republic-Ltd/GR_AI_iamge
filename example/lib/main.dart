@@ -20,13 +20,23 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GRAiIMagePage(
+    return GRAiIMainPage(
       title: "AI Image", // this is optional it defaults to AI Image
       saveMealFunction: () {
         // save the meal to Firebase
       },
       analyzeFunction: () {
-        Get.find<GRImageController>().sendImageToAPI(image.value!.path);
+        if (image.value != null) {
+          Get.find<GRImageController>().uploadImage(image.value!.path);
+        } else {
+          Get.snackbar(
+            "Error: ",
+            "No image selected",
+            snackPosition: SnackPosition.BOTTOM,
+            colorText: Colors.white,
+            backgroundColor: Colors.red.withOpacity(.7),
+          );
+        }
       },
       widgets: [
         // show containers with the results

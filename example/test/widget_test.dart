@@ -1,30 +1,57 @@
-// // This is a basic Flutter widget test.
-// //
-// // To perform an interaction with a widget in your test, use the WidgetTester
-// // utility in the flutter_test package. For example, you can send tap and scroll
-// // gestures. You can also use WidgetTester to find child widgets in the widget
-// // tree, read text, and verify that the values of widget properties are correct.
+import 'dart:convert';
 
-// import 'package:flutter/material.dart';
-// import 'package:flutter_test/flutter_test.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'dart:math';
 
-// import 'package:example/main.dart';
+void main() async {
+  var passphrase = 'GR:Lock';
+  var encryptedPassphrase = '';
+  var decryptedPassphrase = '';
 
-// void main() {
-//   testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-//     // Build our app and trigger a frame.
-//     await tester.pumpWidget(const MyApp());
+  String caesarCipherEncrypt(String text, int shift) {
+    // Generate a random salt
+    var rng = new Random();
+    var frontSalt =
+        String.fromCharCodes(List.generate(6, (_) => rng.nextInt(33) + 89));
+    var backSalt =
+        String.fromCharCodes(List.generate(8, (_) => rng.nextInt(33) + 89));
 
-//     // Verify that our counter starts at 0.
-//     expect(find.text('0'), findsOneWidget);
-//     expect(find.text('1'), findsNothing);
+    // Add the salt to the front and end of the text
+    text = frontSalt + text + backSalt;
+    base64Encode(text.codeUnits);
 
-//     // Tap the '+' icon and trigger a frame.
-//     await tester.tap(find.byIcon(Icons.add));
-//     await tester.pump();
+    return String.fromCharCodes(
+      text.runes.map((rune) {
+        var newRune = rune + shift;
 
-//     // Verify that our counter has incremented.
-//     expect(find.text('0'), findsNothing);
-//     expect(find.text('1'), findsOneWidget);
-//   });
-// }
+        return newRune;
+      }),
+    );
+  }
+
+  String caesarCipherDecrypt(String text, int shift) {
+    // Subtract the shift from each character
+    text = String.fromCharCodes(
+      text.runes.map((rune) {
+        var newRune = rune - shift;
+
+        return newRune;
+      }),
+    );
+    // Remove the salts from the front and end of the text
+    text = text.substring(6, text.length - 8);
+
+    return text;
+  }
+
+  group("Text the Encryption and decryption of the words", () {
+    test("Testing encryption first", () {
+      encryptedPassphrase = caesarCipherEncrypt(passphrase, 3);
+      print(encryptedPassphrase);
+    });
+    test("Testing Decryption second", () {
+      decryptedPassphrase = caesarCipherDecrypt(encryptedPassphrase, 3);
+      expect(decryptedPassphrase, "GR:Lock");
+    });
+  });
+}

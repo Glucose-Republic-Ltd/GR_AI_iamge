@@ -13,24 +13,25 @@ class GRImageController extends GetxController {
   Future<String?> uploadImage(String filePath) async {
     isLoading.toggle(); // Start loading
     File file = File(filePath);
-    String randomFileName = generateRandomString(20); // Generate a random filename
+    String randomFileName =
+        generateRandomString(20); // Generate a random filename
     try {
       // Upload the file to Firebase Storage
       await firebase_storage.FirebaseStorage.instance
           .ref('meal_images/$randomFileName.jpg')
-          .putFile(file, firebase_storage.SettableMetadata(contentType: 'image/jpg'));
+          .putFile(file,
+              firebase_storage.SettableMetadata(contentType: 'image/jpg'));
 
       // Get the download URL of the uploaded file
       downloadURL!.value = await firebase_storage.FirebaseStorage.instance
           .ref('meal_images/$randomFileName.jpg')
-          .getDownloadURL();
-
-      // If the download URL is not empty, send the image to the API
-      if (downloadURL!.value != "") {
-        sendImageToAPI(downloadURL!.value);
-      }
-
-      isLoading.toggle(); // Stop loading
+          .getDownloadURL()
+          .whenComplete(() {
+        // If the download URL is not empty, send the image to the API
+        if (downloadURL!.value != "") {
+          sendImageToAPI(downloadURL!.value);
+        }
+      });
       return downloadURL!.value;
     } on firebase_storage.FirebaseException catch (e) {
       isLoading.toggle(); // Stop loading
@@ -48,7 +49,9 @@ class GRImageController extends GetxController {
 
   // Function to send the image to the API
   Future<Map<String, dynamic>?> sendImageToAPI(String imageUrl) async {
-    var url = Uri.parse('https://gptvisionfood-koovv6g3ba-uc.a.run.app/api/analyze_image'); // Your Flask API URL
+    var url = Uri.parse(
+        'https://open-ai-recipe-r5gvld6y7q-nw.a.run.app/api/analyze_image'); // Your Flask API URL
+
 
     try {
       var response = await http.post(url, body: {'image_url': imageUrl});

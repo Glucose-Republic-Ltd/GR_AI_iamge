@@ -5,10 +5,10 @@ import 'package:get/get.dart';
 import 'package:gr_image_ai_package/export_packages.dart';
 
 // This is a stateless widget for the AI Image page.
-class GRAiIManePage extends StatelessWidget {
+class GRAiIMainPage extends StatelessWidget {
   // Constructor for this widget. It takes several parameters including widgets,
   // analyzeFunction, saveMealFunction, title, and saveIcon.
-  const GRAiIManePage({
+  const GRAiIMainPage({
     super.key,
     required this.widgets,
     required this.analyzeFunction,
@@ -115,7 +115,7 @@ from the gallery to and let the AI do the rest.
         floatingActionButton: Obx(
           () {
             return FloatingActionButton(
-              onPressed: responseData.value != null ? saveMealFunction : () {},
+              onPressed: downloadURL?.value != "" ? saveMealFunction : () {},
               child: Icon(saveIcon ?? Icons.save),
             );
           },
