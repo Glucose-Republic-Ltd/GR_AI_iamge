@@ -94,7 +94,6 @@ class GRAiIMainPage extends StatelessWidget {
                 children: <Widget>[
                   image.value != null
                       ? CircleAvatar(
-                          backgroundColor: avatarColor ?? Colors.grey,
                           radius: 100, // Half of your desired size 500
                           backgroundImage: FileImage(File(image.value!.path)),
                         )
@@ -105,6 +104,7 @@ class GRAiIMainPage extends StatelessWidget {
                           child: Stack(
                             children: <Widget>[
                               CircleAvatar(
+                                backgroundColor: avatarColor ?? Colors.grey,
                                 radius: 70,
                                 child: Icon(
                                   Icons.camera_sharp,
