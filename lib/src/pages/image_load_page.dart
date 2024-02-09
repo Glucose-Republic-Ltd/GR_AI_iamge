@@ -178,8 +178,10 @@ from the gallery to and let the AI do the rest.
                     ),
                   ),
                 )
-              : CircularProgressIndicator(
-                  color: progressIndicatorColor,
+              : Center(
+                  child: CircularProgressIndicator(
+                    color: progressIndicatorColor,
+                  ),
                 );
         }),
         // Floating action button to save the meal. It's enabled only when responseData is not null.
