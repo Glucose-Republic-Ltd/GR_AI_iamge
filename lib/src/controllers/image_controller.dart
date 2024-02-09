@@ -26,13 +26,14 @@ class GRImageController extends GetxController {
       downloadURL!.value = await firebase_storage.FirebaseStorage.instance
           .ref('meal_images/$randomFileName.jpg')
           .getDownloadURL()
-          .whenComplete(() {
+          .then((value) {
         print("Sending data to api");
-        print('download url is: ${downloadURL!.value}');
+        print('download url is: $value');
         // If the download URL is not empty, send the image to the API
-        if (downloadURL!.value != "") {
-          sendImageToAPI(downloadURL!.value);
+        if (value != "") {
+          sendImageToAPI(value);
         }
+        return value;
       });
       return downloadURL!.value;
     } on firebase_storage.FirebaseException catch (e) {
