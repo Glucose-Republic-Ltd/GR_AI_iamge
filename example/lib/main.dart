@@ -21,6 +21,7 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GRAiIMainPage(
+      progressIndicatorColor: Colors.blue,
       textAfterImageUpdate: "Done",
       title: "AI Image", // this is optional it defaults to AI Image
       saveMealFunction: () {

@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:js_util';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -15,6 +16,7 @@ class GRAiIMainPage extends StatelessWidget {
     required this.analyzeFunction,
     required this.saveMealFunction,
     required this.textAfterImageUpdate,
+    required this.progressIndicatorColor,
     this.instructionStyle,
     this.title,
     this.saveIcon,
@@ -46,6 +48,9 @@ class GRAiIMainPage extends StatelessWidget {
 
   // Text once the image is updated
   final String textAfterImageUpdate;
+
+  // progress indicator color
+  final Color progressIndicatorColor;
 
   @override
   Widget build(BuildContext context) {
@@ -85,89 +90,99 @@ class GRAiIMainPage extends StatelessWidget {
             )
           ],
         ),
-        body: Padding(
-          padding: EdgeInsets.all(8.0),
-          child: SingleChildScrollView(
-            child: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Obx(
-                    () {
-                      return image.value != null
-                          ? CircleAvatar(
-                              radius: 100, // Half of your desired size 500
-                              backgroundImage:
-                                  FileImage(File(image.value!.path)),
-                            )
-                          : InkWell(
-                              onTap: () {
-                                showImageSourceDialog(context);
-                              },
-                              child: Stack(
-                                children: <Widget>[
-                                  CircleAvatar(
-                                    backgroundColor: avatarColor ?? Colors.grey,
-                                    radius: 70,
-                                    child: Icon(
-                                      Icons.camera_sharp,
-                                      size: 70,
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                  Positioned(
-                                    right: 0,
-                                    bottom: 0,
-                                    child: CircleAvatar(
-                                      backgroundColor:
-                                          littleIconColor ?? Colors.grey,
-                                      radius: 20,
-                                      child: Icon(
-                                        Icons.add,
-                                        size: 20,
-                                        color: Colors.white,
+        body: Obx(() {
+          return isLoading.value == false
+              ? Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: SingleChildScrollView(
+                    child: Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Obx(
+                            () {
+                              return image.value != null
+                                  ? CircleAvatar(
+                                      radius:
+                                          100, // Half of your desired size 500
+                                      backgroundImage:
+                                          FileImage(File(image.value!.path)),
+                                    )
+                                  : InkWell(
+                                      onTap: () {
+                                        showImageSourceDialog(context);
+                                      },
+                                      child: Stack(
+                                        children: <Widget>[
+                                          CircleAvatar(
+                                            backgroundColor:
+                                                avatarColor ?? Colors.grey,
+                                            radius: 70,
+                                            child: Icon(
+                                              Icons.camera_sharp,
+                                              size: 70,
+                                              color: Colors.white,
+                                            ),
+                                          ),
+                                          Positioned(
+                                            right: 0,
+                                            bottom: 0,
+                                            child: CircleAvatar(
+                                              backgroundColor:
+                                                  littleIconColor ??
+                                                      Colors.grey,
+                                              radius: 20,
+                                              child: Icon(
+                                                Icons.add,
+                                                size: 20,
+                                                color: Colors.white,
+                                              ),
+                                            ),
+                                          ),
+                                        ],
                                       ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            );
-                    },
-                  ),
-                  const SizedBox(height: 30),
-                  // Display the uploaded image or a text message if no image is uploaded.
-                  Obx(
-                    () {
-                      return image.value == null
-                          ? Text(
-                              '''
+                                    );
+                            },
+                          ),
+                          const SizedBox(height: 30),
+                          // Display the uploaded image or a text message if no image is uploaded.
+                          Obx(
+                            () {
+                              return image.value == null
+                                  ? Text(
+                                      '''
 Take a photo or select an image of your meal or recipe
 from the gallery to and let the AI do the rest.
             ''',
-                              textAlign: TextAlign.center,
-                              style: instructionStyle,
-                            )
-                          : Text(
-                              textAfterImageUpdate,
-                              textAlign: TextAlign.center,
-                            );
-                    },
+                                      textAlign: TextAlign.center,
+                                      style: instructionStyle,
+                                    )
+                                  : Text(
+                                      textAfterImageUpdate,
+                                      textAlign: TextAlign.center,
+                                    );
+                            },
+                          ),
+                          SizedBox(height: 20),
+                          // Button to analyze the image.
+                          Obx(() => ElevatedButton(
+                              onPressed:
+                                  image.value != null ? analyzeFunction : null,
+                              child: Text("Analyze Image"))),
+                          SizedBox(height: 30),
+                          // Display the widgets passed to the constructor.
+                          Column(
+                            children: widgets,
+                          )
+                        ],
+                      ),
+                    ),
                   ),
-                  SizedBox(height: 20),
-                  // Button to analyze the image.
-                  Obx(() => ElevatedButton(
-                      onPressed: image.value != null ? analyzeFunction : null,
-                      child: Text("Analyze Image"))),
-                  SizedBox(height: 30),
-                  // Display the widgets passed to the constructor.
-                  Column(
-                    children: widgets,
-                  )
-                ],
-              ),
-            ),
-          ),
-        ),
+                )
+              : CircularProgressIndicator(
+                  color: progressIndicatorColor,
+                );
+        }),
         // Floating action button to save the meal. It's enabled only when responseData is not null.
         floatingActionButton: Obx(
           () {
