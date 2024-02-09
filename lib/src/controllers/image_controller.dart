@@ -34,7 +34,9 @@ class GRImageController extends GetxController {
       });
       return downloadURL!.value;
     } on firebase_storage.FirebaseException catch (e) {
-      isLoading.toggle(); // Stop loading
+      if (isLoading.value == true) {
+        isLoading.toggle(); // Stop loading
+      }
       print(e);
       // Show an error message
       Get.snackbar(
@@ -59,11 +61,15 @@ class GRImageController extends GetxController {
 
       if (response.statusCode == 200) {
         try {
-          isLoading.toggle(); // Stop loading
+          if (isLoading.value == true) {
+            isLoading.toggle(); // Stop loading
+          }
           responseData = json.decode(response.body);
           return responseData;
         } catch (e) {
-          isLoading.toggle(); // Stop loading
+          if (isLoading.value == true) {
+            isLoading.toggle(); // Stop loading
+          } // Stop loading
           print(e);
 
           // Show an error message
