@@ -92,43 +92,48 @@ class GRAiIMainPage extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  image.value != null
-                      ? CircleAvatar(
-                          radius: 100, // Half of your desired size 500
-                          backgroundImage: FileImage(File(image.value!.path)),
-                        )
-                      : InkWell(
-                          onTap: () {
-                            showImageSourceDialog(context);
-                          },
-                          child: Stack(
-                            children: <Widget>[
-                              CircleAvatar(
-                                backgroundColor: avatarColor ?? Colors.grey,
-                                radius: 70,
-                                child: Icon(
-                                  Icons.camera_sharp,
-                                  size: 70,
-                                  color: Colors.white,
-                                ),
-                              ),
-                              Positioned(
-                                right: 0,
-                                bottom: 0,
-                                child: CircleAvatar(
-                                  backgroundColor:
-                                      littleIconColor ?? Colors.grey,
-                                  radius: 20,
-                                  child: Icon(
-                                    Icons.add,
-                                    size: 20,
-                                    color: Colors.white,
+                  Obx(
+                    () {
+                      return image.value != null
+                          ? CircleAvatar(
+                              radius: 100, // Half of your desired size 500
+                              backgroundImage:
+                                  FileImage(File(image.value!.path)),
+                            )
+                          : InkWell(
+                              onTap: () {
+                                showImageSourceDialog(context);
+                              },
+                              child: Stack(
+                                children: <Widget>[
+                                  CircleAvatar(
+                                    backgroundColor: avatarColor ?? Colors.grey,
+                                    radius: 70,
+                                    child: Icon(
+                                      Icons.camera_sharp,
+                                      size: 70,
+                                      color: Colors.white,
+                                    ),
                                   ),
-                                ),
+                                  Positioned(
+                                    right: 0,
+                                    bottom: 0,
+                                    child: CircleAvatar(
+                                      backgroundColor:
+                                          littleIconColor ?? Colors.grey,
+                                      radius: 20,
+                                      child: Icon(
+                                        Icons.add,
+                                        size: 20,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                  ),
+                                ],
                               ),
-                            ],
-                          ),
-                        ),
+                            );
+                    },
+                  ),
                   const SizedBox(height: 30),
                   // Display the uploaded image or a text message if no image is uploaded.
                   Obx(

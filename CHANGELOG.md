@@ -18,3 +18,4 @@
 * fixed the image taking process
 * added more options for colouring
 * added ability to change the text
+* fixed image not updating
