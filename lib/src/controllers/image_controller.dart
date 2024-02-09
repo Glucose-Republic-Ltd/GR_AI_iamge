@@ -50,9 +50,10 @@ class GRImageController extends GetxController {
 
   // Function to send the image to the API
   Future<Map<String, dynamic>?> sendImageToAPI(String imageUrl) async {
+    // var url = Uri.parse(
+    //     'https://open-ai-recipe-r5gvld6y7q-nw.a.run.app/api/analyze_image'); // Your Flask API URL
     var url = Uri.parse(
-        'https://open-ai-recipe-r5gvld6y7q-nw.a.run.app/api/analyze_image'); // Your Flask API URL
-
+        'https://gptvisionfood-koovv6g3ba-uc.a.run.app/api/analyze_image'); // Your Flask API URL
     try {
       var response = await http.post(url, body: {'image_url': imageUrl});
 
