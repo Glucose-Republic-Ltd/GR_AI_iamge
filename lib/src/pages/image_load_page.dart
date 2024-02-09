@@ -14,11 +14,13 @@ class GRAiIMainPage extends StatelessWidget {
     required this.widgets,
     required this.analyzeFunction,
     required this.saveMealFunction,
+    required this.textAfterImageUpdate,
     this.instructionStyle,
     this.title,
     this.saveIcon,
     this.littleIconColor,
     this.floatingActionColor,
+    this.avatarColor,
   });
 
   // Optional title for the page.
@@ -33,8 +35,17 @@ class GRAiIMainPage extends StatelessWidget {
   final VoidCallback analyzeFunction;
   // Text style
   final TextStyle? instructionStyle;
+  // Optional color for the small icon in the CircleAvatar in the InkWell widget.
   final Color? littleIconColor;
+
+  // Optional color for the FloatingActionButton.
   final Color? floatingActionColor;
+
+  // Optional color for the CircleAvatar that displays the selected image.
+  final Color? avatarColor;
+
+  // Text once the image is updated
+  final String textAfterImageUpdate;
 
   @override
   Widget build(BuildContext context) {
@@ -83,6 +94,7 @@ class GRAiIMainPage extends StatelessWidget {
                 children: <Widget>[
                   image.value != null
                       ? CircleAvatar(
+                          backgroundColor: avatarColor ?? Colors.grey,
                           radius: 100, // Half of your desired size 500
                           backgroundImage: FileImage(File(image.value!.path)),
                         )
@@ -130,7 +142,10 @@ from the gallery to and let the AI do the rest.
                               textAlign: TextAlign.center,
                               style: instructionStyle,
                             )
-                          : Text("Image going forward");
+                          : Text(
+                              textAfterImageUpdate,
+                              textAlign: TextAlign.center,
+                            );
                     },
                   ),
                   SizedBox(height: 20),
@@ -152,10 +167,11 @@ from the gallery to and let the AI do the rest.
         floatingActionButton: Obx(
           () {
             return FloatingActionButton(
+              backgroundColor: floatingActionColor ?? Colors.blue,
               onPressed: downloadURL?.value != "" ? saveMealFunction : null,
               child: Icon(
                 saveIcon ?? Icons.save,
-                color: floatingActionColor ?? Colors.white,
+                color: Colors.white,
               ),
             );
           },
