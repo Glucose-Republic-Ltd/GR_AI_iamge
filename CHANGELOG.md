@@ -16,3 +16,5 @@
 * fixed up some issues with switching buttons on and off
 * Added some colour options in main page
 * fixed the image taking process
+* added more options for colouring
+* added ability to change the text
