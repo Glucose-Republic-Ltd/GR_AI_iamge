@@ -35,6 +35,7 @@ class GRImageController extends GetxController {
       return downloadURL!.value;
     } on firebase_storage.FirebaseException catch (e) {
       isLoading.toggle(); // Stop loading
+      print(e);
       // Show an error message
       Get.snackbar(
         "Error: ",
@@ -52,7 +53,6 @@ class GRImageController extends GetxController {
     var url = Uri.parse(
         'https://open-ai-recipe-r5gvld6y7q-nw.a.run.app/api/analyze_image'); // Your Flask API URL
 
-
     try {
       var response = await http.post(url, body: {'image_url': imageUrl});
 
@@ -63,6 +63,8 @@ class GRImageController extends GetxController {
           return responseData;
         } catch (e) {
           isLoading.toggle(); // Stop loading
+          print(e);
+
           // Show an error message
           Get.snackbar(
             "Error: ",
@@ -75,6 +77,8 @@ class GRImageController extends GetxController {
       }
     } catch (e) {
       // Show an error message
+      print(e);
+
       Get.snackbar(
         "Error: ",
         e.toString(),
@@ -93,8 +97,11 @@ class GRImageController extends GetxController {
       await firebase_storage.FirebaseStorage.instance
           .refFromURL(imageUrl)
           .delete();
+      print("image deleted successfully!");
     } on firebase_storage.FirebaseException catch (e) {
       // Show an error message
+      print(e);
+
       Get.snackbar(
         "Error: ",
         e.toString(),
