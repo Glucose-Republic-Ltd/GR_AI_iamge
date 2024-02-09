@@ -104,6 +104,9 @@ class GRImageController extends GetxController {
       await firebase_storage.FirebaseStorage.instance
           .refFromURL(imageUrl)
           .delete();
+      if (isLoading.value == true) {
+        isLoading.toggle(); // Stop loading
+      }
       print("image deleted successfully!");
     } on firebase_storage.FirebaseException catch (e) {
       // Show an error message
