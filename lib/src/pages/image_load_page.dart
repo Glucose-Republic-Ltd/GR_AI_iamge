@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:gr_image_ai_package/export_packages.dart';
+import 'package:gr_image_ai_package/src/global/pick_image.dart';
 
 // This is a stateless widget for the AI Image page.
 class GRAiIMainPage extends StatelessWidget {
@@ -13,8 +14,11 @@ class GRAiIMainPage extends StatelessWidget {
     required this.widgets,
     required this.analyzeFunction,
     required this.saveMealFunction,
+    this.instructionStyle,
     this.title,
     this.saveIcon,
+    this.littleIconColor,
+    this.floatingActionColor,
   });
 
   // Optional title for the page.
@@ -27,6 +31,10 @@ class GRAiIMainPage extends StatelessWidget {
   final VoidCallback saveMealFunction;
   // Function to analyze the image.
   final VoidCallback analyzeFunction;
+  // Text style
+  final TextStyle? instructionStyle;
+  final Color? littleIconColor;
+  final Color? floatingActionColor;
 
   @override
   Widget build(BuildContext context) {
@@ -66,57 +74,89 @@ class GRAiIMainPage extends StatelessWidget {
             )
           ],
         ),
-        body: Center(
-          child: Stack(
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: SingleChildScrollView(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      const SizedBox(height: 20),
-                      // Display the uploaded image or a text message if no image is uploaded.
-                      Obx(
-                        () {
-                          return image.value != null
-                              ? CircleAvatar(
-                                  radius: 100, // Half of your desired size 500
-                                  backgroundImage:
-                                      FileImage(File(image.value!.path)),
-                                )
-                              : const Text(
-                                  '''
+        body: Padding(
+          padding: EdgeInsets.all(8.0),
+          child: SingleChildScrollView(
+            child: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  image.value != null
+                      ? CircleAvatar(
+                          radius: 100, // Half of your desired size 500
+                          backgroundImage: FileImage(File(image.value!.path)),
+                        )
+                      : InkWell(
+                          onTap: () {
+                            showImageSourceDialog(context);
+                          },
+                          child: Stack(
+                            children: <Widget>[
+                              CircleAvatar(
+                                radius: 70,
+                                child: Icon(
+                                  Icons.camera_sharp,
+                                  size: 70,
+                                  color: Colors.white,
+                                ),
+                              ),
+                              Positioned(
+                                right: 0,
+                                bottom: 0,
+                                child: CircleAvatar(
+                                  backgroundColor:
+                                      littleIconColor ?? Colors.grey,
+                                  radius: 20,
+                                  child: Icon(
+                                    Icons.add,
+                                    size: 20,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                  const SizedBox(height: 30),
+                  // Display the uploaded image or a text message if no image is uploaded.
+                  Obx(
+                    () {
+                      return image.value == null
+                          ? Text(
+                              '''
 Take a photo or select an image of your meal or recipe
 from the gallery to and let the AI do the rest.
-''',
-                                  textAlign: TextAlign.center,
-                                );
-                        },
-                      ),
-                      SizedBox(height: 20),
-                      // Button to analyze the image.
-                      ElevatedButton(
-                          onPressed: analyzeFunction,
-                          child: Text("Analyze Image")),
-                      const SizedBox(height: 30),
-                      // Display the widgets passed to the constructor.
-                      Column(
-                        children: widgets,
-                      )
-                    ],
+            ''',
+                              textAlign: TextAlign.center,
+                              style: instructionStyle,
+                            )
+                          : Text("Image going forward");
+                    },
                   ),
-                ),
+                  SizedBox(height: 20),
+                  // Button to analyze the image.
+                  Obx(() => ElevatedButton(
+                      onPressed: image.value != null ? analyzeFunction : null,
+                      child: Text("Analyze Image"))),
+                  SizedBox(height: 30),
+                  // Display the widgets passed to the constructor.
+                  Column(
+                    children: widgets,
+                  )
+                ],
               ),
-            ],
+            ),
           ),
         ),
         // Floating action button to save the meal. It's enabled only when responseData is not null.
         floatingActionButton: Obx(
           () {
             return FloatingActionButton(
-              onPressed: downloadURL?.value != "" ? saveMealFunction : () {},
-              child: Icon(saveIcon ?? Icons.save),
+              onPressed: downloadURL?.value != "" ? saveMealFunction : null,
+              child: Icon(
+                saveIcon ?? Icons.save,
+                color: floatingActionColor ?? Colors.white,
+              ),
             );
           },
         ),
