@@ -14,3 +14,5 @@
 
 * Added new url for post requests
 * fixed up some issues with switching buttons on and off
+* Added some colour options in main page
+* fixed the image taking process
