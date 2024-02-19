@@ -19,3 +19,8 @@
 * added more options for colouring
 * added ability to change the text
 * fixed image not updating
+
+## 0.0.4
+
+* added loading screen option
+* changed url to new one
