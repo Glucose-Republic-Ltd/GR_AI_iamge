@@ -31,4 +31,5 @@
 * Added Predication api
 * Added Prediction list
 * updated nutritional values
-* fixed card on example
+* Fixed card on example
+* Fixed api calls to prediction during the loading process
