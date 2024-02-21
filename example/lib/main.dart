@@ -26,7 +26,9 @@ class Home extends StatelessWidget {
       return isLoading.value
           ? CircularProgressIndicator()
           : GRAiIMainPage(
-              progressIndicatorColor: Colors.blue,
+              loadingScreen: CircularProgressIndicator(
+                color: Colors.blue,
+              ),
               textAfterImageUpdate: "Done",
               title: "AI Image", // this is optional it defaults to AI Image
               saveMealFunction: () {

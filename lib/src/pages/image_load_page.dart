@@ -15,7 +15,7 @@ class GRAiIMainPage extends StatelessWidget {
     required this.analyzeFunction,
     required this.saveMealFunction,
     required this.textAfterImageUpdate,
-    required this.progressIndicatorColor,
+    required this.loadingScreen,
     this.instructionStyle,
     this.title,
     this.saveIcon,
@@ -49,7 +49,7 @@ class GRAiIMainPage extends StatelessWidget {
   final String textAfterImageUpdate;
 
   // progress indicator color
-  final Color progressIndicatorColor;
+  final Widget loadingScreen;
 
   @override
   Widget build(BuildContext context) {
@@ -181,9 +181,7 @@ from the gallery to and let the AI do the rest.
                   ),
                 )
               : Center(
-                  child: CircularProgressIndicator(
-                    color: progressIndicatorColor,
-                  ),
+                  child: loadingScreen
                 );
         }),
         // Floating action button to save the meal. It's enabled only when responseData is not null.
