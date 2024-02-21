@@ -24,3 +24,5 @@
 
 * added loading screen option
 * changed url to new one
+* fixed calls to database
+

@@ -1,11 +1,11 @@
 class FoodItem {
   final String name;
-  final int calories;
-  final int carbs;
-  final int fat;
-  final int protein;
-  final int servingSize;
-  final int sugar;
+  final double calories;
+  final double carbs;
+  final double fat;
+  final double protein;
+  final double servingSize;
+  final double sugar;
 
   FoodItem({
     required this.name,
@@ -20,12 +20,12 @@ class FoodItem {
   factory FoodItem.fromJson(String name, Map<String, dynamic> json) {
     return FoodItem(
       name: name,
-      calories: json['calories'],
-      carbs: json['carbs'],
-      fat: json['fat'],
-      protein: json['protein'],
-      servingSize: json['serving_size(g)'],
-      sugar: json['sugar'],
+      calories: json['calories'].toDouble(),
+      carbs: json['carbs'].toDouble(),
+      fat: json['fat'].toDouble(),
+      protein: json['protein'].toDouble(),
+      servingSize: json['serving_size(g)'].toDouble(),
+      sugar: json['sugar'].toDouble(),
     );
   }
 }
