@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:gr_image_ai_package/export_packages.dart';
+import 'package:gr_image_ai_package/src/controllers/prediction_controller.dart';
 import 'package:gr_image_ai_package/src/model/meal_model.dart';
 import 'package:http/http.dart' as http;
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
@@ -11,7 +12,8 @@ import '../global/random_string.dart';
 
 class GRImageController extends GetxController {
   // Function to upload an image to Firebase Storage
-  Future<String?> uploadImage(String filePath) async {
+  Future<String?> uploadImage(
+      String filePath, double startingGlucoseUnit) async {
     isLoading.toggle(); // Start loading
     File file = File(filePath);
     String randomFileName =
@@ -33,7 +35,10 @@ class GRImageController extends GetxController {
         // If the download URL is not empty, send the image to the API
         if (value != "") {
           print("sending image to api");
-          sendImageToAPI(value);
+          sendImageToAPI(
+            value,
+            startingGlucoseUnit,
+          );
         }
         return value;
       });
@@ -56,7 +61,8 @@ class GRImageController extends GetxController {
   }
 
   // Function to send the image to the API
-  Future<Map<String, dynamic>?> sendImageToAPI(String imageUrl) async {
+  Future<Map<String, dynamic>?> sendImageToAPI(
+      String imageUrl, double startingGlucoseUnit) async {
     var url = Uri.parse(
         'https://open-ai-recipe-r5gvld6y7q-nw.a.run.app/api/analyze_image'); // Your Flask API URL
 
@@ -65,9 +71,6 @@ class GRImageController extends GetxController {
 
       if (response.statusCode == 200) {
         try {
-          if (isLoading.value == true) {
-            isLoading.toggle(); // Stop loading
-          }
           responseData = json.decode(response.body);
           Map<String, dynamic> content = responseData['content'];
           List<String> mealNameFromKeys = content.keys.toList();
@@ -78,27 +81,45 @@ class GRImageController extends GetxController {
             nameOfMeal.value = mealNameFromKeys[0];
           }
 
-      
+          content.entries.forEach((entry) {
+            FoodItem item = FoodItem.fromJson(entry.key, entry.value);
+            // Add the values of the current item to the total
+            totalCalories.value += item.calories;
+            totalCarbs.value += item.carbs;
+            totalFat.value += item.fat;
+            totalProtein.value += item.protein;
+            totalServingSize.value += item.servingSize;
+            totalSugar.value += item.sugar;
+          });
 
-      content.entries.forEach((entry) {
-        FoodItem item = FoodItem.fromJson(entry.key, entry.value);
-        // Add the values of the current item to the total
-        totalCalories.value += item.calories;
-        totalCarbs.value += item.carbs;
-        totalFat.value += item.fat;
-        totalProtein.value += item.protein;
-        totalServingSize.value += item.servingSize;
-        totalSugar.value += item.sugar;
-      });
+          // Now you can use the total values
+          // For example, you can print them
+          print('Total calories: $totalCalories');
+          print('Total carbs: $totalCarbs');
+          print('Total fat: $totalFat');
+          print('Total protein: $totalProtein');
+          print('Total serving size: $totalServingSize');
+          print('Total sugar: $totalSugar');
 
-      // Now you can use the total values
-      // For example, you can print them
-      print('Total calories: $totalCalories');
-      print('Total carbs: $totalCarbs');
-      print('Total fat: $totalFat');
-      print('Total protein: $totalProtein');
-      print('Total serving size: $totalServingSize');
-      print('Total sugar: $totalSugar');
+          MLPredictionController().getPrediction(
+            servingWeightGrams: totalServingSize.value,
+            calories: totalCalories.value,
+            fat: totalFat.value,
+            saturatedFat: 0,
+            sodium: 0,
+            totalCarbohydrates: totalCarbs.value,
+            fiber: 0,
+            protein: totalProtein.value,
+            potassium: 0,
+            sugars: totalSugar.value,
+            phosphorus: 0,
+            vitaminA: 0,
+            vitaminC: 0,
+            calcium: 0,
+            iron: 0,
+            timeDifference: 0,
+            startGlucose: startingGlucoseUnit,
+          );
 
           return responseData;
         } catch (e) {
