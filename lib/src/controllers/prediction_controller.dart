@@ -9,12 +9,10 @@ import '../../export_packages.dart';
 
 class MLPredictionController extends GetxController {
   var url = Uri.parse(mLPredictionBaseURl);
-  RxBool isLoading = false.obs;
   var headers = {
     'Content-Type': 'application/json',
     'Accept': 'application/json',
   };
-
   Future getPrediction({
     required double servingWeightGrams,
     required double calories,
@@ -34,8 +32,6 @@ class MLPredictionController extends GetxController {
     required double timeDifference,
     double startGlucose = 0,
   }) async {
-    isLoading.toggle();
-
     var body = jsonEncode({
       "serving_weight_grams": servingWeightGrams,
       "calories": calories,
@@ -55,33 +51,44 @@ class MLPredictionController extends GetxController {
       'time_difference': timeDifference,
       "start_glucose": startGlucose
     });
+    print("sending data to prediction");
 
     var response = await http.post(url, headers: headers, body: body);
+
+    print("response: ${response.body}");
 
     var jsonResponse = json.decode(response.body);
     var responseCode = response.statusCode;
 
-     try {
+    try {
       switch (responseCode) {
         case 200:
+          print('response 200: $jsonResponse');
           packagePredictionList.value.clear();
           for (int i = 0; i < jsonResponse.length; i++) {
             packagePredictionList.value
                 .add(PredictionMlModel.fromJson(jsonResponse[i]));
           }
           packagePredictionList.value.refresh();
-          isLoading.toggle();
-          isLoading.value = false;
+          if (isLoading.value == true) {
+            isLoading.toggle();
+          }
           break;
         default:
-          isLoading.toggle();
+          print("Did not get good response: $responseCode");
+          if (isLoading.value == true) {
+            isLoading.toggle();
+          }
           Get.snackbar('Error', 'Something went wrong',
               snackPosition: SnackPosition.BOTTOM,
               backgroundColor: Colors.red,
               colorText: Colors.white);
       }
     } catch (e) {
-      isLoading.toggle();
+      print("Got an Error: $e");
+      if (isLoading.value == true) {
+        isLoading.toggle();
+      }
       throw Exception(e);
     }
   }
