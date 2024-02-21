@@ -5,7 +5,7 @@ import '../model/prediction_model.dart';
 
 Rx<File?> image = Rx<File?>(null);
 String mLPredictionBaseURl = 'https://aa-api-7hrpnkb23q-nw.a.run.app/predict';
-var predictionList = RxList<PredictionMlModel>().obs;
+var packagePredictionList = RxList<PredictionMlModel>().obs;
 
 
 // response from database

@@ -64,12 +64,12 @@ class MLPredictionController extends GetxController {
      try {
       switch (responseCode) {
         case 200:
-          predictionList.value.clear();
+          packagePredictionList.value.clear();
           for (int i = 0; i < jsonResponse.length; i++) {
-            predictionList.value
+            packagePredictionList.value
                 .add(PredictionMlModel.fromJson(jsonResponse[i]));
           }
-          predictionList.value.refresh();
+          packagePredictionList.value.refresh();
           isLoading.toggle();
           isLoading.value = false;
           break;
