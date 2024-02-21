@@ -92,34 +92,27 @@ class GRImageController extends GetxController {
             totalSugar.value += item.sugar;
           });
 
-          // Now you can use the total values
-          // For example, you can print them
-          print('Total calories: $totalCalories');
-          print('Total carbs: $totalCarbs');
-          print('Total fat: $totalFat');
-          print('Total protein: $totalProtein');
-          print('Total serving size: $totalServingSize');
-          print('Total sugar: $totalSugar');
-
-          MLPredictionController().getPrediction(
-            servingWeightGrams: totalServingSize.value,
-            calories: totalCalories.value,
-            fat: totalFat.value,
-            saturatedFat: 0,
-            sodium: 0,
-            totalCarbohydrates: totalCarbs.value,
-            fiber: 0,
-            protein: totalProtein.value,
-            potassium: 0,
-            sugars: totalSugar.value,
-            phosphorus: 0,
-            vitaminA: 0,
-            vitaminC: 0,
-            calcium: 0,
-            iron: 0,
-            timeDifference: 0,
-            startGlucose: startingGlucoseUnit,
-          );
+          if (totalCalories.value != 0) {
+            MLPredictionController().getPrediction(
+              servingWeightGrams: totalServingSize.value,
+              calories: totalCalories.value,
+              fat: totalFat.value,
+              saturatedFat: 0,
+              sodium: 0,
+              totalCarbohydrates: totalCarbs.value,
+              fiber: 0,
+              protein: totalProtein.value,
+              potassium: 0,
+              sugars: totalSugar.value,
+              phosphorus: 0,
+              vitaminA: 0,
+              vitaminC: 0,
+              calcium: 0,
+              iron: 0,
+              timeDifference: 0,
+              startGlucose: startingGlucoseUnit,
+            );
+          }
 
           return responseData;
         } catch (e) {
