@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:gr_image_ai_package/export_packages.dart';
+import 'package:gr_image_ai_package/src/model/meal_model.dart';
 import 'package:http/http.dart' as http;
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 
@@ -31,6 +32,7 @@ class GRImageController extends GetxController {
         print('download url is: $value');
         // If the download URL is not empty, send the image to the API
         if (value != "") {
+          print("sending image to api");
           sendImageToAPI(value);
         }
         return value;
@@ -67,6 +69,21 @@ class GRImageController extends GetxController {
             isLoading.toggle(); // Stop loading
           }
           responseData = json.decode(response.body);
+          Map<String, dynamic> content = responseData['content'];
+          List<String> mealNameFromKeys = content.keys.toList();
+
+          if (mealNameFromKeys.length > 1) {
+            nameOfMeal.value = mealNameFromKeys.join(', ');
+          } else {
+            nameOfMeal.value = mealNameFromKeys[0];
+          }
+
+          print('The meal is called: ${nameOfMeal.value}');
+
+        content.entries.forEach((entry) {
+          foodItems.add(FoodItem.fromJson(entry.key, entry.value));
+        });
+
           return responseData;
         } catch (e) {
           if (isLoading.value == true) {
