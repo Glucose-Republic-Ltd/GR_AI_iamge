@@ -65,7 +65,7 @@ class GRAiIMainPage extends StatelessWidget {
           }
           image.value = null;
           downloadURL = "".obs;
-          foodItems.clear();
+         
           nameOfMeal.value = "";
         }
       },

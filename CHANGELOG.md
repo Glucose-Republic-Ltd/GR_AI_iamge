@@ -26,3 +26,9 @@
 * changed url to new one
 * fixed calls to database
 
+## 0.0.5
+
+* Added Predication api
+* Added Prediction list
+* updated nutritional values
+* fixed card on example

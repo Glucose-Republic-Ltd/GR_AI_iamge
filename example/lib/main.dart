@@ -62,56 +62,23 @@ class Home extends StatelessWidget {
                 }),
 
                 Obx(() {
-                  return foodItems.length > 0
-                      ? ListView.builder(
-                          itemCount: foodItems.length,
-                          shrinkWrap: true,
-                          itemBuilder: (context, index) {
-                            return Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(15.0),
-                                child: BackdropFilter(
-                                  filter:
-                                      ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-                                  child: Container(
-                                    height: 150, // Set as needed
-                                    decoration: BoxDecoration(
-                                      color: Colors.white.withOpacity(0.3),
-                                      borderRadius: BorderRadius.circular(15.0),
-                                      border: Border.all(
-                                        width: 1.5,
-                                        color: Colors.white.withOpacity(0.3),
-                                      ),
-                                    ),
-                                    child: Center(
-                                      child: Padding(
-                                        padding: EdgeInsets.all(8),
-                                        child: Column(
-                                          children: [
-                                            Text(
-                                                "Name: ${foodItems[index].name}"),
-                                            Text(
-                                                "Calories: ${foodItems[index].calories}"),
-                                            Text(
-                                                "Carbs: ${foodItems[index].carbs}"),
-                                            Text(
-                                                "Fat: ${foodItems[index].fat}"),
-                                            Text(
-                                                "Protein: ${foodItems[index].protein}"),
-                                            Text(
-                                                "Serving Size: ${foodItems[index].servingSize}"),
-                                            Text(
-                                                "Sugar: ${foodItems[index].sugar}"),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            );
-                          })
+                  return totalCalories.value != 0
+                      ? Card(
+                          child: Container(
+                            width: 300,
+                            child: Column(
+                              children: [
+                                Text("Total calories: ${totalCalories.value}"),
+                                Text("Total carbs: ${totalCarbs.value}"),
+                                Text("Total fat: ${totalFat.value}"),
+                                Text("Total protein: ${totalProtein.value}"),
+                                Text(
+                                    "Total serving size: ${totalServingSize.value}"),
+                                Text("Total sugar: ${totalSugar.value}"),
+                              ],
+                            ),
+                          ),
+                        )
                       : Container();
                 }),
               ],

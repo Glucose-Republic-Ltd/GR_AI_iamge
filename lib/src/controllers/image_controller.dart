@@ -78,11 +78,27 @@ class GRImageController extends GetxController {
             nameOfMeal.value = mealNameFromKeys[0];
           }
 
-          print('The meal is called: ${nameOfMeal.value}');
+      
 
-        content.entries.forEach((entry) {
-          foodItems.add(FoodItem.fromJson(entry.key, entry.value));
-        });
+      content.entries.forEach((entry) {
+        FoodItem item = FoodItem.fromJson(entry.key, entry.value);
+        // Add the values of the current item to the total
+        totalCalories.value += item.calories;
+        totalCarbs.value += item.carbs;
+        totalFat.value += item.fat;
+        totalProtein.value += item.protein;
+        totalServingSize.value += item.servingSize;
+        totalSugar.value += item.sugar;
+      });
+
+      // Now you can use the total values
+      // For example, you can print them
+      print('Total calories: $totalCalories');
+      print('Total carbs: $totalCarbs');
+      print('Total fat: $totalFat');
+      print('Total protein: $totalProtein');
+      print('Total serving size: $totalServingSize');
+      print('Total sugar: $totalSugar');
 
           return responseData;
         } catch (e) {
