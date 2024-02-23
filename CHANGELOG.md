@@ -33,3 +33,4 @@
 * updated nutritional values
 * Fixed card on example
 * Fixed api calls to prediction during the loading process
+* Added a function to combine the data for the chart

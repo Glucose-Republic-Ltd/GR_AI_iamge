@@ -49,6 +49,19 @@ class GRAiIMainPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    clearAll() {
+      image.value = null;
+      downloadURL = "".obs;
+      packagePredictionList.value.clear();
+      nameOfMeal.value = "";
+      totalCalories.value = 0;
+      totalCarbs.value = 0;
+      totalFat.value = 0;
+      totalProtein.value = 0;
+      totalServingSize.value = 0;
+      totalSugar.value = 0;
+    }
+
     // Use PopScope to handle the back button press.
     return PopScope(
       canPop: true,
@@ -59,10 +72,7 @@ class GRAiIMainPage extends StatelessWidget {
           if (downloadURL?.value != "") {
             Get.find<GRImageController>().deleteImage(downloadURL!.value);
           }
-          image.value = null;
-          downloadURL = "".obs;
-
-          nameOfMeal.value = "";
+          clearAll();
         }
       },
       child: Scaffold(
@@ -77,8 +87,7 @@ class GRAiIMainPage extends StatelessWidget {
                 if (downloadURL?.value != "") {
                   Get.find<GRImageController>().deleteImage(downloadURL!.value);
                 }
-                image.value = null;
-                downloadURL = "".obs;
+                clearAll();
               },
               icon: Icon(
                 Icons.refresh,
@@ -174,7 +183,9 @@ from the gallery to and let the AI do the rest.
           () {
             return FloatingActionButton(
               backgroundColor: floatingActionColor ?? Colors.blue,
-              onPressed: packagePredictionList.value.length < 0 ? saveMealFunction : null,
+              onPressed: packagePredictionList.value.length < 0
+                  ? saveMealFunction
+                  : null,
               child: Icon(
                 saveIcon ?? Icons.save,
                 color: Colors.white,
