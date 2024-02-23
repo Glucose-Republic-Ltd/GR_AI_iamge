@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import '../../export_packages.dart';
 
 /// Returns a list of maps containing glucose prediction data for charting.
-RxList<Map<String, dynamic>> packageGetChartData() {
+Future<RxList<Map<String, dynamic>>> packageGetChartData() async {
   // Clear the chart data list if it's not empty.
   if (packageChartDataList.isNotEmpty) {
     packageChartDataList.clear();
