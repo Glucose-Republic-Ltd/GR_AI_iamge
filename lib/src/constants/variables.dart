@@ -14,6 +14,8 @@ RxBool isMeal = false.obs;
 RxBool isLoading = false.obs;
 dynamic responseData;
 RxString? downloadURL = "".obs;
+RxList<Map<String, dynamic>> packageChartDataList = <Map<String, dynamic>>[].obs;
+
 
 // final totals of the meals.
 RxDouble totalCalories = 0.0.obs;

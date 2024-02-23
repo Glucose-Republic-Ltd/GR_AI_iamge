@@ -3,12 +3,10 @@ import 'package:get/get.dart';
 import '../../export_packages.dart';
 
 /// Returns a list of maps containing glucose prediction data for charting.
-RxList<Map<String, dynamic>> packageGetChartData({
-  required RxList<Map<String, dynamic>> chartDataList,
-}) {
+RxList<Map<String, dynamic>> packageGetChartData() {
   // Clear the chart data list if it's not empty.
-  if (chartDataList.isNotEmpty) {
-    chartDataList.clear();
+  if (packageChartDataList.isNotEmpty) {
+    packageChartDataList.clear();
   }
 
   // Loop through the prediction list and add a new map to the chart data list for each item.
@@ -17,7 +15,7 @@ RxList<Map<String, dynamic>> packageGetChartData({
     var now = DateTime.now();
 
     // Add a new map to the chart data list with the time and predicted glucose values.
-    chartDataList.add({
+    packageChartDataList.add({
       'time': now.add(Duration(
         minutes: packagePredictionList.value[i].timeDifference,
       )),
@@ -26,5 +24,5 @@ RxList<Map<String, dynamic>> packageGetChartData({
   }
 
   // Return the chart data list.
-  return chartDataList;
+  return packageChartDataList;
 }
