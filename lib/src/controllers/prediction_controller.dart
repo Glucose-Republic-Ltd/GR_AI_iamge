@@ -70,6 +70,10 @@ class MLPredictionController extends GetxController {
                 .add(PredictionMlModel.fromJson(jsonResponse[i]));
           }
           packagePredictionList.value.refresh();
+
+          if (packagePredictionList.value.length > 0) {
+            packageGetChartData();
+          }
           if (isLoading.value == true) {
             isLoading.toggle();
           }
