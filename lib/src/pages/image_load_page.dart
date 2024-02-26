@@ -60,6 +60,7 @@ class GRAiIMainPage extends StatelessWidget {
       totalProtein.value = 0;
       totalServingSize.value = 0;
       totalSugar.value = 0;
+      packageChartDataList.clear();
     }
 
     // Use PopScope to handle the back button press.
