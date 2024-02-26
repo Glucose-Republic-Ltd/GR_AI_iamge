@@ -180,17 +180,13 @@ from the gallery to and let the AI do the rest.
             ),
           ),
         ), // Floating action button to save the meal. It's enabled only when responseData is not null.
-        floatingActionButton: Obx(
-          () {
-            return FloatingActionButton(
-              backgroundColor: floatingActionColor ?? Colors.blue,
-              onPressed:  saveMealFunction,
-              child: Icon(
-                saveIcon ?? Icons.save,
-                color: Colors.white,
-              ),
-            );
-          },
+        floatingActionButton: FloatingActionButton(
+          backgroundColor: floatingActionColor ?? Colors.blue,
+          onPressed: saveMealFunction,
+          child: Icon(
+            saveIcon ?? Icons.save,
+            color: Colors.white,
+          ),
         ),
       ),
     );
