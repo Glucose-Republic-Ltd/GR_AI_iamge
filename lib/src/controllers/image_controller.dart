@@ -30,8 +30,7 @@ class GRImageController extends GetxController {
           .ref('meal_images/$randomFileName.jpg')
           .getDownloadURL()
           .then((value) {
-        print("Sending data to api");
-        print('download url is: $value');
+        imageName = randomFileName;
         // If the download URL is not empty, send the image to the API
         if (value != "") {
           print("sending image to api");
