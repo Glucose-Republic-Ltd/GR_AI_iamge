@@ -184,9 +184,7 @@ from the gallery to and let the AI do the rest.
           () {
             return FloatingActionButton(
               backgroundColor: floatingActionColor ?? Colors.blue,
-              onPressed: packagePredictionList.value.length < 0
-                  ? saveMealFunction
-                  : null,
+              onPressed:  saveMealFunction,
               child: Icon(
                 saveIcon ?? Icons.save,
                 color: Colors.white,
