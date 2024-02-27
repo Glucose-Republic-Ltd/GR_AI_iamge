@@ -11,7 +11,7 @@ String imageName = "";
 // response from database
 RxString nameOfMeal = "".obs;
 RxBool isMeal = false.obs;
-RxBool isLoading = false.obs;
+RxBool packageIsLoading = false.obs;
 dynamic responseData;
 RxString? downloadURL = "".obs;
 RxList<Map<String, dynamic>> packageChartDataList =

@@ -74,14 +74,14 @@ class MLPredictionController extends GetxController {
           if (packagePredictionList.value.length > 0) {
             packageGetChartData();
           }
-          if (isLoading.value == true) {
-            isLoading.toggle();
+          if (packageIsLoading.value == true) {
+            packageIsLoading.toggle();
           }
           break;
         default:
           print("Did not get good response: $responseCode");
-          if (isLoading.value == true) {
-            isLoading.toggle();
+          if (packageIsLoading.value == true) {
+            packageIsLoading.toggle();
           }
           Get.snackbar('Error', 'Something went wrong',
               snackPosition: SnackPosition.BOTTOM,
@@ -90,8 +90,8 @@ class MLPredictionController extends GetxController {
       }
     } catch (e) {
       print("Got an Error: $e");
-      if (isLoading.value == true) {
-        isLoading.toggle();
+      if (packageIsLoading.value == true) {
+        packageIsLoading.toggle();
       }
       throw Exception(e);
     }

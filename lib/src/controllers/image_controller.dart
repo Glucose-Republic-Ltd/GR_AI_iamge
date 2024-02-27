@@ -14,7 +14,7 @@ class GRImageController extends GetxController {
   // Function to upload an image to Firebase Storage
   Future<String?> uploadImage(
       String filePath, double startingGlucoseUnit) async {
-    isLoading.toggle(); // Start loading
+    packageIsLoading.toggle(); // Start loading
     File file = File(filePath);
     String randomFileName =
         generateRandomString(20); // Generate a random filename
@@ -43,8 +43,8 @@ class GRImageController extends GetxController {
       });
       return downloadURL!.value;
     } on firebase_storage.FirebaseException catch (e) {
-      if (isLoading.value == true) {
-        isLoading.toggle(); // Stop loading
+      if (packageIsLoading.value == true) {
+        packageIsLoading.toggle(); // Stop loading
       }
       print(e);
       // Show an error message
@@ -115,8 +115,8 @@ class GRImageController extends GetxController {
 
           return responseData;
         } catch (e) {
-          if (isLoading.value == true) {
-            isLoading.toggle(); // Stop loading
+          if (packageIsLoading.value == true) {
+            packageIsLoading.toggle(); // Stop loading
           } // Stop loading
           print(e);
 
@@ -152,8 +152,8 @@ class GRImageController extends GetxController {
       await firebase_storage.FirebaseStorage.instance
           .refFromURL(imageUrl)
           .delete();
-      if (isLoading.value == true) {
-        isLoading.toggle(); // Stop loading
+      if (packageIsLoading.value == true) {
+        packageIsLoading.toggle(); // Stop loading
       }
       print("image deleted successfully!");
     } on firebase_storage.FirebaseException catch (e) {
