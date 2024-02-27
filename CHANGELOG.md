@@ -38,3 +38,4 @@
 ## 0.0.6
 
 * Added name for the image and ID of firebase document.
+* Added clear all to the variables
