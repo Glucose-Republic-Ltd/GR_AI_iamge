@@ -49,19 +49,7 @@ class GRAiIMainPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    clearAll() {
-      image.value = null;
-      downloadURL = "".obs;
-      packagePredictionList.value.clear();
-      nameOfMeal.value = "";
-      totalCalories.value = 0;
-      totalCarbs.value = 0;
-      totalFat.value = 0;
-      totalProtein.value = 0;
-      totalServingSize.value = 0;
-      totalSugar.value = 0;
-      packageChartDataList.clear();
-    }
+    
 
     // Use PopScope to handle the back button press.
     return PopScope(
@@ -73,7 +61,7 @@ class GRAiIMainPage extends StatelessWidget {
           if (downloadURL?.value != "") {
             Get.find<GRImageController>().deleteImage(downloadURL!.value);
           }
-          clearAll();
+          packageClearAll();
         }
       },
       child: Scaffold(
@@ -88,7 +76,7 @@ class GRAiIMainPage extends StatelessWidget {
                 if (downloadURL?.value != "") {
                   Get.find<GRImageController>().deleteImage(downloadURL!.value);
                 }
-                clearAll();
+                packageClearAll();
               },
               icon: Icon(
                 Icons.refresh,

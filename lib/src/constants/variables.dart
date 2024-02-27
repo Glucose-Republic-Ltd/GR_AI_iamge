@@ -24,3 +24,19 @@ RxDouble totalFat = 0.0.obs;
 RxDouble totalProtein = 0.0.obs;
 RxDouble totalServingSize = 0.0.obs;
 RxDouble totalSugar = 0.0.obs;
+
+
+// clear all 
+packageClearAll() {
+      image.value = null;
+      downloadURL = "".obs;
+      packagePredictionList.value.clear();
+      nameOfMeal.value = "";
+      totalCalories.value = 0;
+      totalCarbs.value = 0;
+      totalFat.value = 0;
+      totalProtein.value = 0;
+      totalServingSize.value = 0;
+      totalSugar.value = 0;
+      packageChartDataList.clear();
+    }
