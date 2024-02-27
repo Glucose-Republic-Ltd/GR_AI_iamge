@@ -21,13 +21,13 @@ class GRImageController extends GetxController {
     try {
       // Upload the file to Firebase Storage
       await firebase_storage.FirebaseStorage.instance
-          .ref('meal_images/$randomFileName.jpg')
+          .ref('meal_images/$randomFileName')
           .putFile(file,
               firebase_storage.SettableMetadata(contentType: 'image/jpg'));
       print("sending image to firebase");
       // Get the download URL of the uploaded file
       downloadURL!.value = await firebase_storage.FirebaseStorage.instance
-          .ref('meal_images/$randomFileName.jpg')
+          .ref('meal_images/$randomFileName')
           .getDownloadURL()
           .then((value) {
         imageName = randomFileName;
