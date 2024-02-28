@@ -13,7 +13,7 @@ import '../global/random_string.dart';
 class GRImageController extends GetxController {
   // Function to upload an image to Firebase Storage
   Future<String?> uploadImage(
-      String filePath, double startingGlucoseUnit) async {
+      String filePath, double startingGlucoseUnit, bool isMeal) async {
     packageIsLoading.toggle(); // Start loading
     File file = File(filePath);
     String randomFileName =
@@ -37,6 +37,7 @@ class GRImageController extends GetxController {
           sendImageToAPI(
             value,
             startingGlucoseUnit,
+            isMeal,
           );
         }
         return value;
@@ -61,12 +62,12 @@ class GRImageController extends GetxController {
 
   // Function to send the image to the API
   Future<Map<String, dynamic>?> sendImageToAPI(
-      String imageUrl, double startingGlucoseUnit) async {
+      String imageUrl, double startingGlucoseUnit, bool isMeal) async {
     var url = Uri.parse(
         'https://open-ai-recipe-r5gvld6y7q-nw.a.run.app/api/analyze_image'); // Your Flask API URL
 
     try {
-      var response = await http.post(url, body: {'image_url': imageUrl});
+      var response = await http.post(url, body: {'image_url': imageUrl, "is_meal": isMeal});
 
       if (response.statusCode == 200) {
         try {
