@@ -67,19 +67,14 @@ class GRImageController extends GetxController {
         'https://open-ai-recipe-r5gvld6y7q-nw.a.run.app/api/analyze_image'); // Your Flask API URL
 
     try {
-      var response = await http.post(url, body: {'image_url': imageUrl, "is_meal": isMeal});
+      var response = await http
+          .post(url, body: {'image_url': imageUrl, "is_meal": isMeal});
 
       if (response.statusCode == 200) {
         try {
           responseData = json.decode(response.body);
           Map<String, dynamic> content = responseData['content'];
-          List<String> mealNameFromKeys = content.keys.toList();
-
-          if (mealNameFromKeys.length > 1) {
-            nameOfMeal.value = mealNameFromKeys.join(', ');
-          } else {
-            nameOfMeal.value = mealNameFromKeys[0];
-          }
+          nameOfMeal.value = responseData['meal_name'];
 
           content.entries.forEach((entry) {
             FoodItem item = FoodItem.fromJson(entry.key, entry.value);
@@ -91,7 +86,6 @@ class GRImageController extends GetxController {
             totalServingSize.value += item.servingSize;
             totalSugar.value += item.sugar;
           });
-
           if (totalCalories.value != 0) {
             MLPredictionController().getPrediction(
               servingWeightGrams: totalServingSize.value,
