@@ -38,3 +38,7 @@
 ## 0.0.6
 
 * Added name for the image and ID of firebase document.
+
+## 0.0.7
+
+* added meal or recipe option to the api
