@@ -8,7 +8,7 @@ void main() async {
   var url = Uri.parse(
       'https://open-ai-recipe-r5gvld6y7q-nw.a.run.app/api/analyze_image');
 
-  var response = await http.post(url, body: {'image_url': imageUrl, "is_meal": true});
+  var response = await http.post(url, body: {'image_url': imageUrl, "is_meal": "true"});
 
   group('Testing the api', () {
     test('Test for 200', () {
