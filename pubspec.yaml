@@ -1,7 +1,7 @@
 name: gr_image_ai_package
 description: "A Package for Glucose Republic for capturing images and having AI
   detect the glucose level in the image"
-version: 0.0.6
+version: 0.0.7
 # homepage: null
 environment:
   sdk: ">=3.2.3 <4.0.0"
