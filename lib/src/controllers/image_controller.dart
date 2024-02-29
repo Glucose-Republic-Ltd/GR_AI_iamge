@@ -126,6 +126,9 @@ class GRImageController extends GetxController {
         }
       }
     } catch (e) {
+        if (packageIsLoading.value == true) {
+            packageIsLoading.toggle(); // Stop loading
+          } 
       // Show an error message
       print(e);
 

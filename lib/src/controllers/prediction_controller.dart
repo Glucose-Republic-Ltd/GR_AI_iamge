@@ -55,15 +55,12 @@ class MLPredictionController extends GetxController {
 
     var response = await http.post(url, headers: headers, body: body);
 
-    print("response: ${response.body}");
-
     var jsonResponse = json.decode(response.body);
     var responseCode = response.statusCode;
 
     try {
       switch (responseCode) {
         case 200:
-          print('response 200: $jsonResponse');
           packagePredictionList.value.clear();
           for (int i = 0; i < jsonResponse.length; i++) {
             packagePredictionList.value
