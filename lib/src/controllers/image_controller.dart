@@ -124,11 +124,23 @@ class GRImageController extends GetxController {
             backgroundColor: Colors.red.withOpacity(.7),
           );
         }
+      } else {
+        if (packageIsLoading.value == true) {
+          packageIsLoading.toggle(); // Stop loading
+        }
+        // Show an error message
+        Get.snackbar(
+          "Error: ",
+          "Error: ${response.statusCode}",
+          snackPosition: SnackPosition.BOTTOM,
+          colorText: Colors.white,
+          backgroundColor: Colors.red.withOpacity(.7),
+        );
       }
     } catch (e) {
-        if (packageIsLoading.value == true) {
-            packageIsLoading.toggle(); // Stop loading
-          } 
+      if (packageIsLoading.value == true) {
+        packageIsLoading.toggle(); // Stop loading
+      }
       // Show an error message
       print(e);
 
@@ -140,7 +152,7 @@ class GRImageController extends GetxController {
         backgroundColor: Colors.red.withOpacity(.7),
       );
     }
-
+    print(responseData);
     return null;
   }
 

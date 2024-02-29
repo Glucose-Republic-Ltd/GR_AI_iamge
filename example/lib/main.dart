@@ -33,7 +33,7 @@ class Home extends StatelessWidget {
               },
               analyzeFunction: () {
                 String _image =
-                    "https://imgs.search.brave.com/aSYQ-a2cmuI1wh1nlJp1iTCZDpb_UohwJDvbPmOG3gw/rs:fit:860:0:0/g:ce/aHR0cHM6Ly9pbWcu/ZnJlZXBpay5jb20v/ZnJlZS1waG90by9k/ZWxpY2lvdXMtZnJp/ZWQtY2hpY2tlbi1w/bGF0ZV8xNDQ2Mjct/MjczODMuanBnP3Np/emU9NjI2JmV4dD1q/cGc";
+                    "https://imgs.search.brave.com/dYJfnWNdptqNPNfSA_sBujyw6U3DFJ1gi2TgzSy9BDM/rs:fit:860:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5pc3RvY2twaG90/by5jb20vaWQvMTE0/NzQ5NzE2MC9waG90/by9jb2ZmZWUtY3Vw/LmpwZz9zPTYxMng2/MTImdz0wJms9MjAm/Yz1sb202dTlPbVhQ/UU9XTHNld0xrTmsz/NU1Sb2xEWThYbDMx/RFZ3LVZGd1A4PQ";
                 if (image.value != null) {
                   Get.find<GRImageController>().sendImageToAPI(_image, 5.0, "true");
                 } else {
