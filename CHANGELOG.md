@@ -41,4 +41,5 @@
 
 ## 0.0.7
 
-* added meal or recipe option to the api
+* Added meal or recipe option to the api
+* Added error catch for images that are not recognised
