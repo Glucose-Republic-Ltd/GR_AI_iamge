@@ -130,8 +130,8 @@ class GRImageController extends GetxController {
         }
         // Show an error message
         Get.snackbar(
-          "Error: ",
-          "Error: ${response.statusCode}",
+          "Unfortunately the AI was not able to detect the meal in the image.",
+          "Please try a more detailed image.",
           snackPosition: SnackPosition.BOTTOM,
           colorText: Colors.white,
           backgroundColor: Colors.red.withOpacity(.7),
