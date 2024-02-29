@@ -35,7 +35,7 @@ class Home extends StatelessWidget {
                 String _image =
                     "https://imgs.search.brave.com/aSYQ-a2cmuI1wh1nlJp1iTCZDpb_UohwJDvbPmOG3gw/rs:fit:860:0:0/g:ce/aHR0cHM6Ly9pbWcu/ZnJlZXBpay5jb20v/ZnJlZS1waG90by9k/ZWxpY2lvdXMtZnJp/ZWQtY2hpY2tlbi1w/bGF0ZV8xNDQ2Mjct/MjczODMuanBnP3Np/emU9NjI2JmV4dD1q/cGc";
                 if (image.value != null) {
-                  Get.find<GRImageController>().sendImageToAPI(_image, 5.0, true);
+                  Get.find<GRImageController>().sendImageToAPI(_image, 5.0, "true");
                 } else {
                   Get.snackbar(
                     "Error: ",
