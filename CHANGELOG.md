@@ -43,3 +43,5 @@
 
 * Added meal or recipe option to the api
 * Added error catch for images that are not recognised
+* Added the new "style" to the main page
+
