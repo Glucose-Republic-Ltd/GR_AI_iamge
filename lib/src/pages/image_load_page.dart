@@ -15,6 +15,7 @@ class GRAiIMainPage extends StatelessWidget {
     required this.analyzeFunction,
     required this.saveMealFunction,
     required this.textAfterImageUpdate,
+    this.spaceColor,
     this.instructionStyle,
     this.title,
     this.saveIcon,
@@ -46,6 +47,9 @@ class GRAiIMainPage extends StatelessWidget {
 
   // Text once the image is updated
   final String textAfterImageUpdate;
+
+  // Final color for space color.
+  final Color? spaceColor;
 
   @override
   Widget build(BuildContext context) {
@@ -92,47 +96,50 @@ class GRAiIMainPage extends StatelessWidget {
                 children: <Widget>[
                   Obx(
                     () {
-                      return image.value != null
-                          ? Padding(
-                              padding: EdgeInsets.symmetric(vertical: 50),
-                              child: CircleAvatar(
-                                radius: 100, // Half of your desired size 500
-                                backgroundImage:
-                                    FileImage(File(image.value!.path)),
-                              ),
-                            )
-                          : InkWell(
+                      return Stack(
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.only(top: 50),
+                            child: InkWell(
                               onTap: () {
                                 showImageSourceDialog(context);
                               },
-                              child: Stack(
-                                children: <Widget>[
-                                  CircleAvatar(
-                                    backgroundColor: avatarColor ?? Colors.grey,
-                                    radius: 70,
-                                    child: Icon(
-                                      Icons.camera_sharp,
-                                      size: 70,
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                  Positioned(
-                                    right: 0,
-                                    bottom: 0,
-                                    child: CircleAvatar(
-                                      backgroundColor:
-                                          littleIconColor ?? Colors.grey,
-                                      radius: 20,
-                                      child: Icon(
-                                        Icons.add,
-                                        size: 20,
+                              child: CircleAvatar(
+                                radius: image.value != null ? 100 : 70,
+                                backgroundColor:
+                                    avatarColor ?? Colors.grey[300],
+                                backgroundImage: image.value != null
+                                    ? FileImage(File(image.value!.path))
+                                    : null,
+                                child: image.value == null
+                                    ? Icon(
+                                        Icons.camera_sharp,
+                                        size: 70,
                                         color: Colors.white,
-                                      ),
-                                    ),
-                                  ),
-                                ],
+                                      )
+                                    : null,
                               ),
-                            );
+                            ),
+                          ),
+                          Positioned(
+                            right: 0,
+                            bottom: 0,
+                            child: CircleAvatar(
+                              radius: image.value != null ? 30 : 25,
+                              backgroundColor: spaceColor ?? Colors.white,
+                              child: CircleAvatar(
+                                backgroundColor: littleIconColor ?? Colors.grey,
+                                radius: image.value != null ? 25 : 20,
+                                child: Icon(
+                                  Icons.add,
+                                  size: image.value != null ? 25 : 20,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
+                          )
+                        ],
+                      );
                     },
                   ),
                   const SizedBox(height: 30),
