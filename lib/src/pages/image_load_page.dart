@@ -49,8 +49,6 @@ class GRAiIMainPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    
-
     // Use PopScope to handle the back button press.
     return PopScope(
       canPop: true,
@@ -69,6 +67,7 @@ class GRAiIMainPage extends StatelessWidget {
           // Set the title of the page.
           title: Text(title ?? 'AI Image'),
           actions: [
+            SizedBox(height: 50),
             IconButton(
               // When the refresh button is pressed, delete the image from Firebase Storage
               // and clear the image and download URL.
