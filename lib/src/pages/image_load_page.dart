@@ -67,7 +67,6 @@ class GRAiIMainPage extends StatelessWidget {
           // Set the title of the page.
           title: Text(title ?? 'AI Image'),
           actions: [
-            SizedBox(height: 50),
             IconButton(
               // When the refresh button is pressed, delete the image from Firebase Storage
               // and clear the image and download URL.
@@ -94,10 +93,13 @@ class GRAiIMainPage extends StatelessWidget {
                   Obx(
                     () {
                       return image.value != null
-                          ? CircleAvatar(
-                              radius: 100, // Half of your desired size 500
-                              backgroundImage:
-                                  FileImage(File(image.value!.path)),
+                          ? Padding(
+                              padding: EdgeInsets.symmetric(vertical: 50),
+                              child: CircleAvatar(
+                                radius: 100, // Half of your desired size 500
+                                backgroundImage:
+                                    FileImage(File(image.value!.path)),
+                              ),
                             )
                           : InkWell(
                               onTap: () {
