@@ -1,39 +1,47 @@
-<!--
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
+# GRAiIMainPage Widget
 
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/guides/libraries/writing-package-pages).
-
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-library-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/developing-packages).
--->
-
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
+`GRAiIMainPage` is a stateless widget that provides an interface for users to upload an image of a meal or recipe, analyze it using AI, and save the results.
 
 ## Features
 
-TODO: List what your package can do. Maybe include images, gifs, or videos.
-
-## Getting started
-
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
+- Upload an image from the gallery or take a new photo.
+- Analyze the uploaded image using AI.
+- Save the analyzed data.
+- Clear the uploaded image and analyzed data.
 
 ## Usage
 
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder.
+To use this widget, you need to pass the following parameters:
+
+- `widgets`: A list of widgets to display on the page.
+- `analyzeFunction`: A function to analyze the uploaded image.
+- `saveMealFunction`: A function to save the analyzed data.
+- `textAfterImageUpdate`: Text to display after the image is updated.
+- `title` (optional): The title of the page.
+- `saveIcon` (optional): The icon for the save button.
+- `instructionStyle` (optional): The text style for the instruction text.
+- `littleIconColor` (optional): The color for the small icon in the CircleAvatar in the InkWell widget.
+- `floatingActionColor` (optional): The color for the FloatingActionButton.
+- `avatarColor` (optional): The color for the CircleAvatar that displays the selected image.
+- `spaceColor` (optional): The color for the space around the CircleAvatar.
+
+Here's an example of how to use it:
 
 ```dart
-const like = 'sample';
-```
-
-## Additional information
-
-TODO: Tell users more about the package: where to find more information, how to
-contribute to the package, how to file issues, what response they can expect
-from the package authors, and more.
+GRAiIMainPage(
+	widgets: [Text('Widget 1'), Text('Widget 2')],
+	analyzeFunction: () {
+		// Your code to analyze the image
+	},
+	saveMealFunction: () {
+		// Your code to save the analyzed data
+	},
+	textAfterImageUpdate: 'Image has been updated',
+	title: 'AI Image',
+	saveIcon: Icons.save,
+	instructionStyle: TextStyle(color: Colors.black),
+	littleIconColor: Colors.grey,
+	floatingActionColor: Colors.blue,
+	avatarColor: Colors.grey[300],
+	spaceColor: Colors.white,
+)
