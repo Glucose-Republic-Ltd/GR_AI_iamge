@@ -45,3 +45,7 @@
 * Added error catch for images that are not recognised
 * Added the new "style" to the main page
 
+## 0.0.8
+
+* Removed unused data for prediction api
+* Updated baseURl for prediction api
