@@ -53,3 +53,4 @@
 ## 0.0.9
 
 * Added inkwell to little button for AI image select.
+* Changed colour of text in pop up dialog box to black
