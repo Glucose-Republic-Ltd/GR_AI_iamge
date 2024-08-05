@@ -127,13 +127,18 @@ class GRAiIMainPage extends StatelessWidget {
                             child: CircleAvatar(
                               radius: image.value != null ? 30 : 25,
                               backgroundColor: spaceColor ?? Colors.white,
-                              child: CircleAvatar(
-                                backgroundColor: littleIconColor ?? Colors.grey,
-                                radius: image.value != null ? 25 : 20,
-                                child: Icon(
-                                  Icons.add,
-                                  size: image.value != null ? 25 : 20,
-                                  color: Colors.white,
+                              child: InkWell( 
+                                onTap: () {
+                                  showImageSourceDialog(context);
+                                },
+                                child: CircleAvatar(
+                                  backgroundColor: littleIconColor ?? Colors.grey,
+                                  radius: image.value != null ? 25 : 20,
+                                  child: Icon(
+                                    Icons.add,
+                                    size: image.value != null ? 25 : 20,
+                                    color: Colors.white,
+                                  ),
                                 ),
                               ),
                             ),
