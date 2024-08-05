@@ -43,7 +43,12 @@ void showImageSourceDialog(BuildContext context) {
     context: context,
     builder: (BuildContext context) {
       return AlertDialog(
-        title: const Text('Pick an image from:'),
+        title: const Text(
+          'Pick an image from:',
+          style: TextStyle(
+            color: Colors.black,
+          ),
+        ),
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
