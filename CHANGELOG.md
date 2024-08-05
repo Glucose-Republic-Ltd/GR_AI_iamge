@@ -49,3 +49,7 @@
 
 * Removed unused data for prediction api
 * Updated baseURl for prediction api
+
+## 0.0.9
+
+* Added inkwell to little button for AI image select.
