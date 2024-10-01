@@ -58,3 +58,4 @@
 ## 0.0.10
 
 * update to firebase core
+* update to firebase storage
