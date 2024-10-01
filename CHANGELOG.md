@@ -54,3 +54,7 @@
 
 * Added inkwell to little button for AI image select.
 * Changed colour of text in pop up dialog box to dark grey.
+
+## 0.0.10
+
+* update to firebase core
